@@ -1,4 +1,4 @@
-export interface TaskBarUi {
+export interface OsBarUi {
   minimal: boolean
   position: {
     justify: {
@@ -21,3 +21,9 @@ export interface OsMenuOptions {
 }
 
 export type OsMenuSelectedWindow = 'settings' | 'theme' | ''
+
+export interface Wallpaper {
+  img: string
+  id: string
+  favorite: boolean
+}
