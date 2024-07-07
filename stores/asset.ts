@@ -5,8 +5,6 @@
 // import wp5 from '~/assets/image/backgrounds/wp5.jpg'
 // import wp6 from '~/assets/image/backgrounds/wp6.jpg'
 
-const id = useId()
-
 // const backgroundDefaultWallpapers = ref<Wallpaper[]>(
 //   [{
 //     id,

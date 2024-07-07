@@ -15,3 +15,9 @@ export interface TaskBarUi {
   rounded: number
   opacity: number
 }
+
+export interface OsMenuOptions {
+  name: string
+}
+
+export type OsMenuSelectedWindow = 'settings' | 'theme' | ''
