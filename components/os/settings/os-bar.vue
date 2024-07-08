@@ -5,7 +5,7 @@ const osStore = useOsStore()
 <template>
   <div class="w-full h-full flex flex-col items-end gap-2">
     <div class="w-full flex justify-start">
-      Tool Bar
+      Task Bar
     </div>
     <USelectMenu v-model="osStore.osBarUi.position.justify.value" :disabled="!osStore.osBarUi.minimal" class="w-36" :options="osStore.osBarUi.position.justify.options" />
     <USelectMenu v-model="osStore.osBarUi.position.align.value" class="w-36" :options="osStore.osBarUi.position.align.options" />

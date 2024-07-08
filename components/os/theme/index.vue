@@ -7,17 +7,17 @@ const osStore = useOsStore()
     <template #header>
       <label class="flex w-full justify-center"> THEME </label>
     </template>
-    <div class="w-full flex flex-col gap-2 h-full">
+    <div v-if="osStore.wallpapers" class="w-full flex flex-col gap-2 h-full">
       <SelectTheme />
-      <div class="w-full flex flex-wrap gap-2">
-        <img
+      <div class="grid grid-cols-2 gap-2 items-center justify-center">
+        <NuxtImg
           v-for="wallpaper in osStore.wallpapers"
-          :key="wallpaper.id" class="w-64 rounded-xl cursor-pointer"
-          :src="wallpaper.img" @click="osStore.currentWallpaper = wallpaper"
-        >
-      </div>
-      <div class="w-64 h-32 border rounded-xl flex justify-center items-center opacity-50 hover:border-primary-400 hover:text-primary-400 cursor-pointer">
-        <UIcon name="i-heroicons-plus-circle text-3xl" />
+          :key="wallpaper.id"
+          :src="wallpaper.img"
+          class="rounded-xl cursor-pointer"
+          loading="lazy"
+          @click="osStore.currentWallpaper = wallpaper"
+        />
       </div>
     </div>
   </UCard>

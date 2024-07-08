@@ -5,10 +5,12 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   modules: [
-    '@nuxt/ui', 
-    '@pinia/nuxt', 
-    '@vueuse/nuxt', 
-    "@nuxtjs/i18n"],
+    '@nuxt/ui',
+    '@pinia/nuxt',
+    '@vueuse/nuxt',
+    "@nuxtjs/i18n",
+    '@nuxt/image',
+  ],
 
   pinia: {
     storesDirs: ['./stores/**'],

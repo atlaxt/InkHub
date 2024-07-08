@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.15.0",
+    "@nuxt/image": "^1.7.0",
     "eslint": "^9.6.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "vue-tsc": "^1"

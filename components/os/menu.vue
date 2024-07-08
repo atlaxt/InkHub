@@ -26,7 +26,7 @@ const links = [{
       </div>
     </div>
     <div class="flex w-full justify-end gap-2">
-      <UButton label="restart" variant="ghost" icon="i-heroicons-arrow-path" />
+      <UButton label="restart" variant="ghost" icon="i-heroicons-arrow-path" @click="refreshOs" />
       <UButton label="exit" variant="ghost" icon="i-heroicons-x-circle" />
     </div>
   </div>
