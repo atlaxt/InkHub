@@ -7,6 +7,9 @@ export const useOsStore = defineStore('os', () => {
     return useId()
   }
 
+  const systemDate = computed(() => new Date())
+  const osCurrentDate = ref<Date>(systemDate.value)
+
   const osMenuSelectedWindow = ref<OsMenuSelectedWindow>('settings')
 
   const osBarUi = ref<OsBarUi>({
@@ -97,6 +100,8 @@ export const useOsStore = defineStore('os', () => {
   })
 
   return {
+    systemDate,
+    osCurrentDate,
     osMenuOpen,
     osMenuSelectedWindow,
     osBarUi,

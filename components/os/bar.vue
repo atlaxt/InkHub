@@ -26,12 +26,21 @@ const osBarInnerClass = computed(() => {
       :class="osBarInnerClass"
     >
       <div class="flex items-center gap-4 justify-between">
-        <UPopover v-model:open="osStore.osMenuOpen" :popper="{ placement: 'top-start' }">
-          <UButton icon="i-heroicons-bug-ant" class="rounded-full" />
-          <template #panel>
-            <OsMenu />
-          </template>
-        </UPopover>
+        <div class="flex items-center gap-4">
+          <UPopover v-model:open="osStore.osMenuOpen" :popper="{ placement: 'top-start' }">
+            <div class="flex justify-between w-full items-center">
+              <UButton icon="i-heroicons-bug-ant" class="rounded-full" />
+            </div>
+            <template #panel>
+              <OsMenu />
+            </template>
+          </UPopover>
+          asd
+        </div>
+        <div class="flex gap-4 items-center">
+          <OsNotification />
+          <OsCalendar />
+        </div>
       </div>
     </div>
   </div>

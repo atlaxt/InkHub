@@ -31,9 +31,7 @@ useHead({
     <Wallpaper class="z-10 relative" />
     <div :class="osFontInnerClass" class="z-20 absolute top-0 left-0 w-full h-full text-md">
       <NuxtPage />
-      <NuxtLayout>
-        <OsBar />
-      </NuxtLayout>
+      <OsBar />
     </div>
     <template #fallback>
       <PageProcess />
