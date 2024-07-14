@@ -5,7 +5,8 @@ const osFontInnerClass = computed(() => {
   const name = osStore.fontUi.value.name
   const style = osStore.fontUi.value.style
   const weight = osStore.fontUi.value.weight
-  return `${name}-${weight}-${style}`
+  const size = osStore.fontUi.value.size
+  return `${name}-${weight}-${style} ${size}`
 })
 
 const scrollBarStyle = `
@@ -56,7 +57,7 @@ useHead({
     <Wallpaper class="z-10 relative" />
     <div
       :class="osFontInnerClass"
-      class="z-20 absolute top-0 left-0 w-full h-full text-md"
+      class="z-20 absolute top-0 left-0 w-full h-full"
     >
       <NuxtPage />
       <OsBar />

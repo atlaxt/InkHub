@@ -87,11 +87,13 @@ export const useOsStore = defineStore('os', () => {
       name: 'montserrat',
       style: 'normal',
       weight: 400,
+      size: 'text-md',
     },
     options:{
       name: ['montserrat', 'opansans'],
       style: ['normal','italic'],
-      weight: ['100','200','400','500','600','700','800','900']
+      weight: ['100','200','400','500','600','700','800','900'],
+      size: ['text-xs','text-sm' , 'text-md', 'text-lg','text-xl','text-2xl','text-3xl']
     }
   })
 
