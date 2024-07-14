@@ -3,5 +3,5 @@ const osStore = useOsStore()
 </script>
 
 <template>
-  <label> {{ osStore.osCurrentDate }} </label>
+  <label> {{ getPlaceHolderDateFormat(osStore.osCurrentDate.toString(), true) }} </label>
 </template>

@@ -5,7 +5,6 @@ const osBarClass = computed(() => {
   const align = osStore.osBarUi.position.align.value
   const justify = osStore.osBarUi.position.justify.value
   const opacity = osStore.currentOpacity
-  console.log(opacity)
   return `fixed ${align}-0 left-0 flex justify-${justify} w-full ${opacity}`
 })
 
