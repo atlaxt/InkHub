@@ -57,7 +57,7 @@ useHead({
     <Wallpaper class="z-10 relative" />
     <div
       :class="osFontInnerClass"
-      class="z-20 absolute top-0 left-0 w-full h-full"
+      class="z-20 absolute top-0 left-0 w-screen h-screen overflow-hidden"
     >
       <NuxtPage />
       <OsBar />

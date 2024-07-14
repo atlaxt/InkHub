@@ -73,6 +73,10 @@ export default defineI18nConfig(() => ({
           name: 'Dil Seçenekleri',
           save: 'Dil Seçeneklerini Kaydet'
         },
+        display: {
+          name: 'Masaüstü Ayarları',
+          save: 'Masaüstünü Kaydet',
+        },
         osBar: {
           name: 'Görev Çubuğu Ayarları',
           save: 'Görev Çubuğunu Kaydet',

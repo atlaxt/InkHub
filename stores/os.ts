@@ -1,5 +1,5 @@
 import { wallpapersBase64 } from '~/assets/image/wallpapers'
-import type { OsMenuSelectedWindow, OsBarUi, Wallpaper } from '~/types'
+import type { OsMenuSelectedWindow, OsBarUi, Wallpaper, FontUi } from '~/types'
 
 export const useOsStore = defineStore('os', () => {
   const osMenuOpen = ref<boolean>(false)
@@ -80,20 +80,33 @@ export const useOsStore = defineStore('os', () => {
       },
     ],
   )
-  const currentWallpaper = ref<Wallpaper>(wallpapers.value[0])
+  const currentWallpaper = ref<Wallpaper>(wallpapers.value[3])
 
-  const fontUi = ref({
+  const fontUi = ref<FontUi>({
     value: {
       name: 'montserrat',
       style: 'normal',
       weight: 400,
       size: 'text-md',
     },
-    options:{
+    options: {
       name: ['montserrat', 'opansans'],
-      style: ['normal','italic'],
-      weight: ['100','200','400','500','600','700','800','900'],
-      size: ['text-xs','text-sm' , 'text-md', 'text-lg','text-xl','text-2xl','text-3xl']
+      style: ['normal', 'italic'],
+      weight: ['100', '200', '400', '500', '600', '700', '800', '900'],
+      size: ['text-xs', 'text-sm', 'text-md', 'text-lg', 'text-xl', 'text-2xl', 'text-3xl']
+    }
+  })
+
+  const desktopUi = ref({
+    folder: {
+      icon: '',
+      size: {
+        value: 80,
+        options: {
+          min: 50,
+          max: 120,
+        },
+      },
     }
   })
 
@@ -107,5 +120,6 @@ export const useOsStore = defineStore('os', () => {
     wallpapers,
     currentWallpaper,
     fontUi,
+    desktopUi,
   }
 })

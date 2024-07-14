@@ -16,6 +16,8 @@ const { t } = useI18n()
       <OsSettingsFont />
       <UDivider />
       <OsSettingsLanguage />
+      <UDivider />
+      <OsSettingsDisplay />
     </div>
   </UCard>
 </template>
