@@ -4,8 +4,12 @@ const osStore = useOsStore()
 const osBarClass = computed(() => {
   const align = osStore.osBarUi.position.align.value
   const justify = osStore.osBarUi.position.justify.value
-  const opacity = osStore.currentOpacity
-  return `fixed ${align}-0 left-0 flex justify-${justify} w-full ${opacity}`
+  return `fixed ${align}-0 left-0 flex justify-${justify} w-full`
+})
+
+const opacityStyle = computed(() => {
+  const opacity = `${Math.abs(osStore.osBarUi.opacity * 5 - 100)}`
+  return `opacity: 0.${Number.parseInt(opacity) === 100 ? 99.9 : opacity};`
 })
 
 const osBarInnerClass = computed(() => {
@@ -20,7 +24,7 @@ const osBarInnerClass = computed(() => {
 </script>
 
 <template>
-  <div :class="osBarClass">
+  <div :style="opacityStyle" :class="osBarClass">
     <div
       class="bg-white shadow-2xl dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800 ring-gray-200 dark:ring-gray-800"
       :class="osBarInnerClass"

@@ -26,7 +26,7 @@ export const useOsStore = defineStore('os', () => {
     },
     hover: true,
     rounded: 4,
-    opacity: 2,
+    opacity: 1,
   })
 
 
@@ -55,9 +55,6 @@ export const useOsStore = defineStore('os', () => {
     }
   })
 
-  const currentOpacity = computed(() => {
-    return `opacity${osBarUi.value.opacity * 5 - 100}`
-  })
 
   const wallpapers = ref<Wallpaper[]>(
     [
@@ -91,7 +88,6 @@ export const useOsStore = defineStore('os', () => {
       style: 'normal',
       weight: 400,
     },
-
     options:{
       name: ['montserrat', 'opansans'],
       style: ['normal','italic'],
@@ -106,7 +102,6 @@ export const useOsStore = defineStore('os', () => {
     osMenuSelectedWindow,
     osBarUi,
     currentHoverRounded,
-    currentOpacity,
     wallpapers,
     currentWallpaper,
     fontUi,
