@@ -65,8 +65,8 @@ function onContextMenu() {
           <!-- taskbar folders -->
         </div>
         <div class="flex gap-4 items-center">
-          <OsNotification />
           <OsCalendar />
+          <OsNotification />
         </div>
       </div>
     </div>

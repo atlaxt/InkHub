@@ -25,7 +25,7 @@ const scrollBarStyle = `
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #b30000;
+    background: gray;
   }
 `
 
@@ -50,11 +50,15 @@ useHead({
     },
   ],
 })
+
+
+
+
 </script>
 
 <template>
   <ClientOnly fallback-tag="span">
-    <Wallpaper class="z-10 relative" />
+    <BackgroundWallpaper class="z-10 relative" />
     <div
       :class="osFontInnerClass"
       class="z-20 absolute top-0 left-0 w-screen h-screen overflow-hidden"

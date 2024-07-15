@@ -3,6 +3,7 @@ import type { OsMenuSelectedWindow, OsBarUi, Wallpaper, FontUi } from '~/types'
 
 export const useOsStore = defineStore('os', () => {
   const osMenuOpen = ref<boolean>(false)
+
   const setId = () => {
     return useId()
   }
@@ -80,7 +81,7 @@ export const useOsStore = defineStore('os', () => {
       },
     ],
   )
-  const currentWallpaper = ref<Wallpaper>(wallpapers.value[3])
+  const currentWallpaper = ref<Wallpaper>(wallpapers.value[0])
 
   const fontUi = ref<FontUi>({
     value: {
@@ -97,18 +98,17 @@ export const useOsStore = defineStore('os', () => {
     }
   })
 
-  const desktopUi = ref({
-    folder: {
-      icon: '',
-      size: {
-        value: 80,
-        options: {
-          min: 50,
-          max: 120,
-        },
-      },
-    }
-  })
+  
+
+  const showDesktop = ref<boolean>(true)
+  const refreshPage = () => {
+    const originalValue = showDesktop.value;
+    showDesktop.value = !originalValue;
+    setTimeout(() => {
+      showDesktop.value = originalValue;
+    }, 300);
+  };
+  
 
   return {
     systemDate,
@@ -120,6 +120,7 @@ export const useOsStore = defineStore('os', () => {
     wallpapers,
     currentWallpaper,
     fontUi,
-    desktopUi,
+    showDesktop,
+    refreshPage,
   }
 })

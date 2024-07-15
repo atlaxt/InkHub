@@ -4,6 +4,10 @@ import { useMouse, useWindowScroll } from '@vueuse/core'
 const { x, y } = useMouse()
 const { y: windowY } = useWindowScroll()
 
+const fileStore = useFileStore()
+
+const fileFontSize = computed(() => fileStore.fileUi.folder.size.value / 5)
+
 const isOpen = ref(false)
 const virtualElement = ref({ getBoundingClientRect: () => ({}) })
 
@@ -24,13 +28,13 @@ function onContextMenu() {
 
 <template>
   <div
-    class="relative hover:border rounded-lg hover:bg-gray-700 select-none"
+    class="relative rounded-lg select-none"
     @contextmenu.prevent="onContextMenu"
   >
-    <div class="w-full px-2 flex flex-col overflow-hidden">
-      <img class="w-full" src="../../../assets/icons/file/default.svg">
-      <article class="text-pretty text-center drop">
-        <p class="font-shadow">
+    <div class="w-full px-2 flex flex-col overflow-hidden rounded-lg hover:bg-gray-800/25">
+      <img class="w-full" :src="fileStore.fileUi.folder.icon.value">
+      <article class="text-center drop">
+        <p :style="`font-size: ${fileFontSize}px;`" class="text-white">
           Test Folder
         </p>
       </article>
@@ -44,6 +48,6 @@ function onContextMenu() {
 
 <style scoped>
 p {
-  text-shadow: 2px 2px 4px #000000;
+  text-shadow: 2px 2px 3px #000000;
 }
 </style>

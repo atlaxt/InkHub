@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     "@nuxtjs/i18n",
     '@nuxt/image',
+    'nuxt-module-eslint-config',
   ],
 
   pinia: {
@@ -19,5 +20,9 @@ export default defineNuxtConfig({
   i18n: {
     vueI18n: './i18n.config.ts',
   },
+
+  eslintConfig: {
+    setup: false,
+  }
   
 })

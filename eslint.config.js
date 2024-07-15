@@ -1,7 +1,8 @@
 import antfu from '@antfu/eslint-config'
+import NuxtEslintConfig from './.nuxt/eslint.config.mjs'
 
-export default antfu({
-  rules: {
-    'no-undef': 'off',
+export default antfu(
+  {
   },
-})
+  NuxtEslintConfig,
+)

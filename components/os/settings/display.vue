@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const osStore = useOsStore()
+const fileStore = useFileStore()
 const { t } = useI18n()
 </script>
 
@@ -9,8 +10,8 @@ const { t } = useI18n()
       {{ t('settings.display.name') }}
     </div>
     <URange
-      v-model="osStore.desktopUi.folder.size.value" class="w-36"
-      :min="osStore.desktopUi.folder.size.options.min" :max="osStore.desktopUi.folder.size.options.max"
+      v-model="fileStore.fileUi.folder.size.value" class="w-36"
+      :min="fileStore.fileUi.folder.size.options.min" :max="fileStore.fileUi.folder.size.options.max"
     />
   </div>
 </template>

@@ -5,8 +5,11 @@ definePageMeta({
   name: 'home',
 })
 
+
+
+
 const osStore = useOsStore()
-const divs = Array.from({ length: 30 })
+const fileStore = useFileStore()
 
 const desktopPosition = computed(() => {
   return osStore.osBarUi.position.align.value === 'bottom' ? 'marginBottom' : 'marginTop'
@@ -29,6 +32,11 @@ function onContextMenu() {
     left,
   })
 
+
+
+
+
+
   isOpen.value = true
 }
 </script>
@@ -36,22 +44,23 @@ function onContextMenu() {
 <template>
   <div class="h-full w-full p-5" @contextmenu.prevent="onContextMenu">
     <div
-      :style="{ [desktopPosition]: '70px' }"
-      class="flex h-full w-full flex-wrap gap-3"
+      v-if="osStore.showDesktop"
+      :style="{ [desktopPosition]: '80px' }"
+      class="flex h-full w-full flex-wrap flex-col gap-3"
       style="align-content: start;"
     >
       <div
-        v-for="(_, index) in divs"
+        v-for="(_, index) in fileStore.files"
         :key="index"
         class="min-h-16 max-h-36"
-        :style="`width: ${osStore.desktopUi.folder.size.value}px;`"
+        :style="`width: ${fileStore.fileUi.folder.size.value}px;`"
       >
         <FileIconDesktop />
       </div>
     </div>
 
     <UContextMenu v-model="isOpen" :virtual-element="virtualElement">
-      <OsContext />
+      <OsContext @click="isOpen = false" />
     </UContextMenu>
   </div>
 </template>

@@ -7,8 +7,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "lint": "eslint ."
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@nuxt/ui": "^2.17.0",
@@ -21,10 +20,9 @@
     "vue": "latest"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.15.0",
     "@nuxt/image": "^1.7.0",
-    "eslint": "^9.6.0",
-    "eslint-plugin-nuxt": "^4.0.0",
+    "nuxt-module-eslint-config": "^0.1.1",
     "vue-tsc": "^1"
-  }
+  },
+  "packageManager": "pnpm@9.1.2+sha1.907f57a52517de34399d66401bf220a549e47b57"
 }
