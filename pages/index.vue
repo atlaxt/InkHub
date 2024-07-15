@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useMouse, useWindowScroll } from '@vueuse/core'
+
 definePageMeta({
   name: 'home',
 })
@@ -9,10 +11,30 @@ const divs = Array.from({ length: 30 })
 const desktopPosition = computed(() => {
   return osStore.osBarUi.position.align.value === 'bottom' ? 'marginBottom' : 'marginTop'
 })
+
+const { x, y } = useMouse()
+const { y: windowY } = useWindowScroll()
+
+const isOpen = ref(false)
+const virtualElement = ref({ getBoundingClientRect: () => ({}) })
+
+function onContextMenu() {
+  const top = unref(y) - unref(windowY)
+  const left = unref(x)
+
+  virtualElement.value.getBoundingClientRect = () => ({
+    width: 0,
+    height: 0,
+    top,
+    left,
+  })
+
+  isOpen.value = true
+}
 </script>
 
 <template>
-  <div class="h-full w-full p-5">
+  <div class="h-full w-full p-5" @contextmenu.prevent="onContextMenu">
     <div
       :style="{ [desktopPosition]: '70px' }"
       class="flex h-full w-full flex-wrap gap-3"
@@ -27,5 +49,9 @@ const desktopPosition = computed(() => {
         <FileIconDesktop />
       </div>
     </div>
+
+    <UContextMenu v-model="isOpen" :virtual-element="virtualElement">
+      <OsContext />
+    </UContextMenu>
   </div>
 </template>
