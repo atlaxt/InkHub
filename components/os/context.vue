@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { useTerminalStore } from '~/stores/terminal'
+
 const osStore = useOsStore()
+const terminalStore = useTerminalStore()
+
 const links = [
   [
     {
@@ -31,6 +35,7 @@ const links = [
       label: 'Open Terminal',
       icon: 'i-heroicons-command-line',
       click: () => {
+        terminalStore.isOpen = true
       },
     },
   ],

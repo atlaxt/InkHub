@@ -1,3 +1,3 @@
 export const refreshOs = () => {
-    location.reload()
+  location.reload()
 }

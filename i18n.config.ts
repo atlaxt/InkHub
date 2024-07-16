@@ -29,16 +29,16 @@ export default defineI18nConfig(() => ({
         },
         font: {
           name: 'Font Styles',
-          save: 'Save Font Style'
+          save: 'Save Font Style',
         },
         language: {
           name: 'Language Options',
-          save: 'Save Language Options'
+          save: 'Save Language Options',
         },
         osBar: {
           name: 'Taskbar Settings',
           save: 'Save Taskbar',
-        }
+        },
       },
     },
     tr: {
@@ -67,11 +67,11 @@ export default defineI18nConfig(() => ({
         },
         font: {
           name: 'Yazı Tipi Stilleri',
-          save: 'Yazı Tipi Stilini Kaydet'
+          save: 'Yazı Tipi Stilini Kaydet',
         },
         language: {
           name: 'Dil Seçenekleri',
-          save: 'Dil Seçeneklerini Kaydet'
+          save: 'Dil Seçeneklerini Kaydet',
         },
         display: {
           name: 'Masaüstü Ayarları',
@@ -80,7 +80,7 @@ export default defineI18nConfig(() => ({
         osBar: {
           name: 'Görev Çubuğu Ayarları',
           save: 'Görev Çubuğunu Kaydet',
-        }
+        },
       },
     },
   },

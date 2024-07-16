@@ -1,5 +1,5 @@
 import FileIconDefault from '~/assets/icons/file/default.svg'
- 
+
 export const useFileStore = defineStore('files', () => {
   const fileUi = ref({
     folder: {
@@ -14,9 +14,9 @@ export const useFileStore = defineStore('files', () => {
           max: 120,
         },
       },
-    }
+    },
   })
-  
+
   const files = Array.from({ length: 15 })
   return {
     files,

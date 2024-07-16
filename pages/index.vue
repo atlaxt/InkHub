@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { useMouse, useWindowScroll } from '@vueuse/core'
+import { useTerminalStore } from '~/stores/terminal'
 
 definePageMeta({
   name: 'home',
 })
 
-
-
-
+const terminalStore = useTerminalStore()
 const osStore = useOsStore()
 const fileStore = useFileStore()
 
@@ -18,7 +17,7 @@ const desktopPosition = computed(() => {
 const { x, y } = useMouse()
 const { y: windowY } = useWindowScroll()
 
-const isOpen = ref(false)
+const desktopContextIsOpen = ref(false)
 const virtualElement = ref({ getBoundingClientRect: () => ({}) })
 
 function onContextMenu() {
@@ -31,18 +30,15 @@ function onContextMenu() {
     top,
     left,
   })
-
-
-
-
-
-
-  isOpen.value = true
+  desktopContextIsOpen.value = true
 }
 </script>
 
 <template>
-  <div class="h-full w-full p-5" @contextmenu.prevent="onContextMenu">
+  <div
+    class="h-full w-full p-5 relative"
+    @contextmenu.prevent="onContextMenu"
+  >
     <div
       v-if="osStore.showDesktop"
       :style="{ [desktopPosition]: '80px' }"
@@ -52,15 +48,26 @@ function onContextMenu() {
       <div
         v-for="(_, index) in fileStore.files"
         :key="index"
-        class="min-h-16 max-h-36"
+        class="min-h-16 z-40 max-h-36"
         :style="`width: ${fileStore.fileUi.folder.size.value}px;`"
       >
         <FileIconDesktop />
       </div>
     </div>
 
-    <UContextMenu v-model="isOpen" :virtual-element="virtualElement">
-      <OsContext @click="isOpen = false" />
+    <UContextMenu
+      v-model="desktopContextIsOpen"
+      :virtual-element="virtualElement"
+    >
+      <OsContext @click="desktopContextIsOpen = false" />
     </UContextMenu>
+
+    <div class="fixed z-0 top-0 left-0 w-full h-full flex justify-center items-center">
+      <Terminal
+        v-if="terminalStore.terminalIsOpen"
+        class="z-50"
+        :style="`width: ${osStore.openWindowDefaultSizes.width}; height: ${osStore.openWindowDefaultSizes.height};`"
+      />
+    </div>
   </div>
 </template>

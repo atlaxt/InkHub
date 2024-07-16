@@ -32,15 +32,24 @@ function onContextMenu() {
     @contextmenu.prevent="onContextMenu"
   >
     <div class="w-full px-2 flex flex-col overflow-hidden rounded-lg hover:bg-gray-800/25">
-      <img class="w-full" :src="fileStore.fileUi.folder.icon.value">
+      <img
+        class="w-full"
+        :src="fileStore.fileUi.folder.icon.value"
+      >
       <article class="text-center drop">
-        <p :style="`font-size: ${fileFontSize}px;`" class="text-white">
+        <p
+          :style="`font-size: ${fileFontSize}px;`"
+          class="text-white"
+        >
           Test Folder
         </p>
       </article>
     </div>
 
-    <UContextMenu v-model="isOpen" :virtual-element="virtualElement">
+    <UContextMenu
+      v-model="isOpen"
+      :virtual-element="virtualElement"
+    >
       <FileContext />
     </UContextMenu>
   </div>

@@ -50,10 +50,6 @@ useHead({
     },
   ],
 })
-
-
-
-
 </script>
 
 <template>

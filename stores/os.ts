@@ -4,6 +4,11 @@ import type { OsMenuSelectedWindow, OsBarUi, Wallpaper, FontUi } from '~/types'
 export const useOsStore = defineStore('os', () => {
   const osMenuOpen = ref<boolean>(false)
 
+  const openWindowDefaultSizes = {
+    width: '60%',
+    height: '55%',
+  }
+
   const setId = () => {
     return useId()
   }
@@ -30,7 +35,6 @@ export const useOsStore = defineStore('os', () => {
     opacity: 1,
   })
 
-
   const currentHoverRounded = computed(() => {
     switch (osBarUi.value.rounded) {
       case 0:
@@ -56,31 +60,28 @@ export const useOsStore = defineStore('os', () => {
     }
   })
 
-
-  const wallpapers = ref<Wallpaper[]>(
-    [
-      {
-        img: setBase64String(wallpapersBase64[0]),
-        favorite: false,
-        id: setId(),
-      },
-      {
-        img: setBase64String(wallpapersBase64[1]),
-        favorite: false,
-        id: setId(),
-      },
-      {
-        img: setBase64String(wallpapersBase64[2]),
-        favorite: false,
-        id: setId(),
-      },
-      {
-        img: setBase64String(wallpapersBase64[3]),
-        favorite: false,
-        id: setId(),
-      },
-    ],
-  )
+  const wallpapers = ref<Wallpaper[]>([
+    {
+      img: setBase64String(wallpapersBase64[0]),
+      favorite: false,
+      id: setId(),
+    },
+    {
+      img: setBase64String(wallpapersBase64[1]),
+      favorite: false,
+      id: setId(),
+    },
+    {
+      img: setBase64String(wallpapersBase64[2]),
+      favorite: false,
+      id: setId(),
+    },
+    {
+      img: setBase64String(wallpapersBase64[3]),
+      favorite: false,
+      id: setId(),
+    },
+  ])
   const currentWallpaper = ref<Wallpaper>(wallpapers.value[0])
 
   const fontUi = ref<FontUi>({
@@ -94,21 +95,26 @@ export const useOsStore = defineStore('os', () => {
       name: ['montserrat', 'opansans'],
       style: ['normal', 'italic'],
       weight: ['100', '200', '400', '500', '600', '700', '800', '900'],
-      size: ['text-xs', 'text-sm', 'text-md', 'text-lg', 'text-xl', 'text-2xl', 'text-3xl']
-    }
+      size: [
+        'text-xs',
+        'text-sm',
+        'text-md',
+        'text-lg',
+        'text-xl',
+        'text-2xl',
+        'text-3xl',
+      ],
+    },
   })
-
-  
 
   const showDesktop = ref<boolean>(true)
   const refreshPage = () => {
-    const originalValue = showDesktop.value;
-    showDesktop.value = !originalValue;
+    const originalValue = showDesktop.value
+    showDesktop.value = !originalValue
     setTimeout(() => {
-      showDesktop.value = originalValue;
-    }, 300);
-  };
-  
+      showDesktop.value = originalValue
+    }, 300)
+  }
 
   return {
     systemDate,
@@ -122,5 +128,6 @@ export const useOsStore = defineStore('os', () => {
     fontUi,
     showDesktop,
     refreshPage,
+    openWindowDefaultSizes,
   }
 })

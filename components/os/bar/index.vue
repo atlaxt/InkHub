@@ -46,7 +46,10 @@ function onContextMenu() {
 </script>
 
 <template>
-  <div :style="opacityStyle" :class="osBarClass">
+  <div
+    :style="opacityStyle"
+    :class="osBarClass"
+  >
     <div
       class="bg-white shadow-2xl dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800 ring-gray-200 dark:ring-gray-800"
       :class="osBarInnerClass"
@@ -54,9 +57,15 @@ function onContextMenu() {
     >
       <div class="flex items-center gap-4 justify-between">
         <div class="flex items-center gap-4">
-          <UPopover v-model:open="osStore.osMenuOpen" :popper="{ placement: 'top-start' }">
+          <UPopover
+            v-model:open="osStore.osMenuOpen"
+            :popper="{ placement: 'top-start' }"
+          >
             <div class="flex justify-between w-full items-center">
-              <UButton icon="i-heroicons-bug-ant" class="rounded-full" />
+              <UButton
+                icon="i-heroicons-bug-ant"
+                class="rounded-full"
+              />
             </div>
             <template #panel>
               <OsMenu />
@@ -71,7 +80,10 @@ function onContextMenu() {
       </div>
     </div>
 
-    <UContextMenu v-model="isOpen" :virtual-element="virtualElement">
+    <UContextMenu
+      v-model="isOpen"
+      :virtual-element="virtualElement"
+    >
       <OsBarContext />
     </UContextMenu>
   </div>

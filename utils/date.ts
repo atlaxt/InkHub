@@ -1,246 +1,180 @@
+export const getDefaultCurrencyFormat = (
+  _currency: number | string | undefined,
+): string => {
+  if (!_currency) return ''
 
+  let currencyNumber: number
 
-export const getDefaultCurrencyFormat = (_currency: number | string | undefined): string => {
+  if (typeof _currency === 'string') {
+    currencyNumber = parseFloat(_currency)
+  }
+  else {
+    currencyNumber = _currency
+  }
 
-    if (!_currency)
+  const formattedCurrency = new Intl.NumberFormat(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(currencyNumber)
 
-        return ''
-
-    let currencyNumber: number
-
-    if (typeof _currency === 'string') {
-
-        currencyNumber = parseFloat(_currency)
-
-    }
-
-    else {
-
-        currencyNumber = _currency
-
-    }
-
-    const formattedCurrency = new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(currencyNumber)
-
-    return formattedCurrency
-
+  return formattedCurrency
 }
-
-
 
 export const getMonthName = (monthNumber: string) => {
+  const { t } = useI18n()
 
-    const { t } = useI18n()
+  switch (monthNumber) {
+    case '1':
+      return t('months.january')
 
-    switch (monthNumber) {
+    case '2':
+      return t('months.february')
 
-        case '1':
+    case '3':
+      return t('months.march')
 
-            return t('months.january')
+    case '4':
+      return t('months.april')
 
-        case '2':
+    case '5':
+      return t('months.may')
 
-            return t('months.february')
+    case '6':
+      return t('months.june')
 
-        case '3':
+    case '7':
+      return t('months.july')
 
-            return t('months.march')
+    case '8':
+      return t('months.august')
 
-        case '4':
+    case '9':
+      return t('months.september')
 
-            return t('months.april')
+    case '10':
+      return t('months.october')
 
-        case '5':
+    case '11':
+      return t('months.november')
 
-            return t('months.may')
+    case '12':
+      return t('months.december')
 
-        case '6':
-
-            return t('months.june')
-
-        case '7':
-
-            return t('months.july')
-
-        case '8':
-
-            return t('months.august')
-
-        case '9':
-
-            return t('months.september')
-
-        case '10':
-
-            return t('months.october')
-
-        case '11':
-
-            return t('months.november')
-
-        case '12':
-
-            return t('months.december')
-
-        default:
-
-            return ''
-
-    }
-
+    default:
+      return ''
+  }
 }
-
-
 
 export const getMonthNumber = (monthName: string | undefined): string => {
+  const { t } = useI18n()
 
-    const { t } = useI18n()
+  switch (monthName) {
+    case t('months.january'):
+      return '1'
 
-    switch (monthName) {
+    case t('months.february'):
+      return '2'
 
-        case t('months.january'):
+    case t('months.march'):
+      return '3'
 
-            return '1'
+    case t('months.april'):
+      return '4'
 
-        case t('months.february'):
+    case t('months.may'):
+      return '5'
 
-            return '2'
+    case t('months.june'):
+      return '6'
 
-        case t('months.march'):
+    case t('months.july'):
+      return '7'
 
-            return '3'
+    case t('months.august'):
+      return '8'
 
-        case t('months.april'):
+    case t('months.september'):
+      return '9'
 
-            return '4'
+    case t('months.october'):
+      return '10'
 
-        case t('months.may'):
+    case t('months.november'):
+      return '11'
 
-            return '5'
+    case t('months.december'):
+      return '12'
 
-        case t('months.june'):
+    case undefined:
+      return ''
 
-            return '6'
-
-        case t('months.july'):
-
-            return '7'
-
-        case t('months.august'):
-
-            return '8'
-
-        case t('months.september'):
-
-            return '9'
-
-        case t('months.october'):
-
-            return '10'
-
-        case t('months.november'):
-
-            return '11'
-
-        case t('months.december'):
-
-            return '12'
-
-        case undefined:
-
-            return ''
-
-        default:
-
-            return ''
-
-    }
-
+    default:
+      return ''
+  }
 }
-
-
 
 export const formatTwoDigits = (value: number | string): string => {
+  if (typeof value === 'string') value = parseInt(value)
 
-    if (typeof value === 'string')
-
-        value = parseInt(value)
-
-    return value < 10 ? `0${value}` : value.toString()
-
+  return value < 10 ? `0${value}` : value.toString()
 }
 
+export const getPlaceHolderDateFormat = (
+  _date: string,
+  _monthName?: boolean,
+) => {
+  const date = new Date(_date)
 
+  const day = date.getDate()
 
-export const getPlaceHolderDateFormat = (_date: string, _monthName?: boolean) => {
+  const month = date.getMonth() + 1
 
-    const date = new Date(_date)
+  const monthName = getMonthName((date.getMonth() + 1).toString())
 
-    const day = date.getDate()
+  const year = date.getFullYear()
 
-    const month = date.getMonth() + 1
-
-    const monthName = getMonthName((date.getMonth() + 1).toString())
-
-    const year = date.getFullYear()
-
-    if (_monthName)
-
-        return `${formatTwoDigits(day)} ${monthName} ${year}`
-
-    else
-
-        return `${formatTwoDigits(day)}.${formatTwoDigits(month)}.${year}`
-
+  if (_monthName) return `${formatTwoDigits(day)} ${monthName} ${year}`
+  else return `${formatTwoDigits(day)}.${formatTwoDigits(month)}.${year}`
 }
-
-
 
 export const getStartDate = (_date: string | Date): string => {
+  const date = new Date(_date)
 
-    const date = new Date(_date)
+  if (
+    date.getHours() !== 0
+    || date.getMinutes() !== 0
+    || date.getSeconds() !== 0
+    || date.getMilliseconds() !== 0
+  ) {
+    date.setHours(0, 0, 0, 0)
+  }
 
-    if (date.getHours() !== 0 || date.getMinutes() !== 0 || date.getSeconds() !== 0 || date.getMilliseconds() !== 0) {
-
-        date.setHours(0, 0, 0, 0)
-
-    }
-
-    return date.toISOString()
-
+  return date.toISOString()
 }
-
-
 
 export const getEndDate = (_date: string | Date): string => {
+  const date = new Date(_date)
 
-    const date = new Date(_date)
+  if (
+    date.getHours() !== 0
+    || date.getMinutes() !== 0
+    || date.getSeconds() !== 0
+    || date.getMilliseconds() !== 0
+  ) {
+    date.setHours(23, 59, 59, 999)
+  }
 
-    if (date.getHours() !== 0 || date.getMinutes() !== 0 || date.getSeconds() !== 0 || date.getMilliseconds() !== 0) {
-
-        date.setHours(23, 59, 59, 999)
-
-    }
-
-    return date.toISOString()
-
+  return date.toISOString()
 }
-
-
 
 export const formatDate = (transactionDate: string): string => {
+  const date = new Date(transactionDate)
 
-    const date = new Date(transactionDate)
+  const dd = String(date.getDate()).padStart(2, '0')
 
-    const dd = String(date.getDate()).padStart(2, '0')
+  const mm = String(date.getMonth() + 1).padStart(2, '0')
 
-    const mm = String(date.getMonth() + 1).padStart(2, '0')
+  const yyyy = date.getFullYear()
 
-    const yyyy = date.getFullYear()
-
-
-
-    return `${dd}-${mm}-${yyyy}`
-
+  return `${dd}-${mm}-${yyyy}`
 }
-

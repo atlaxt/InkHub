@@ -1,6 +1,8 @@
 {
+  "eslint.useFlatConfig": true,
+  "scss.lint.unknownAtRules": "ignore",
+  
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "always"
+    "source.fixAll": "explicit"
   },
-  "eslint.useFlatConfig": true
 }
