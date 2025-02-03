@@ -1,10 +1,13 @@
 <script setup lang="ts">
+useHead({
+  title: 'Fox Os',
+})
 </script>
 
 <template>
   <NuxtLayout>
-    <div class="w-full relative h-full flex p-8">
-      <div class="w-full h-full rounded-lg bg-gray-800/50" />
+    <div class="w-full h-full p-2 flex flex-col gap-2 overflow-hidden">
+      <File v-for="(file, key) in 6" :key />
     </div>
   </NuxtLayout>
 </template>

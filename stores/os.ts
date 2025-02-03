@@ -13,6 +13,18 @@ export const useOsStore = defineStore('os', () => {
     position: 'bottom',
   })
 
+  const contextMenu = ref<Record<'bar' | 'file' | 'desktop', boolean>>({
+    bar: false,
+    file: false,
+    desktop: false,
+  })
+
+  const openContextMenu = (type: 'bar' | 'file' | 'desktop') => {
+    Object.keys(contextMenu.value).forEach((key) => {
+      contextMenu.value[key as keyof typeof contextMenu.value] = key === type
+    })
+  }
+
   return {
     wallpaperOptions,
     wallpaper,
@@ -20,5 +32,8 @@ export const useOsStore = defineStore('os', () => {
     barPositionsOptions,
     barModeOptions,
     bar,
+
+    contextMenu,
+    openContextMenu,
   }
 })
