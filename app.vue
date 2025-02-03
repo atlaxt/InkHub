@@ -1,73 +1,10 @@
 <script setup lang="ts">
-const osStore = useOsStore()
-
-const osFontInnerClass = computed(() => {
-  const name = osStore.fontUi.value.name
-  const style = osStore.fontUi.value.style
-  const weight = osStore.fontUi.value.weight
-  const size = osStore.fontUi.value.size
-  return `${name}-${weight}-${style} ${size}`
-})
-
-const scrollBarStyle = `
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0);
-    border-radius: 50px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgb(37, 46, 59);
-    border-radius: 50px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: gray;
-  }
-`
-
-useHead({
-  title: 'OS',
-  meta: [
-    {
-      name: 'description',
-      content: 'template',
-    },
-  ],
-  link: [
-    {
-      rel: 'icon',
-      type: 'image/png',
-      href: '/nuxt.png',
-    },
-  ],
-  style: [
-    {
-      children: scrollBarStyle,
-    },
-  ],
-})
 </script>
 
 <template>
-  <ClientOnly fallback-tag="span">
-    <BackgroundWallpaper class="z-10 relative" />
-    <div
-      :class="osFontInnerClass"
-      class="z-20 absolute top-0 left-0 w-screen h-screen overflow-hidden"
-    >
-      <NuxtPage />
-      <OsBar />
+  <NuxtLayout>
+    <div class="w-full relative h-full flex p-8">
+      <div class="w-full h-full rounded-lg bg-gray-800/50" />
     </div>
-    <template #fallback>
-      <PageProcess />
-    </template>
-  </ClientOnly>
+  </NuxtLayout>
 </template>
-
-<style>
-@import './assets/fonts.css';
-</style>
