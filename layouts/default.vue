@@ -43,7 +43,7 @@ const items = computed(() => {
   if (osStore.contextMenu.bar) {
     temp.push([
       [{
-        label: 'Fox Os About',
+        label: 'Foxian About',
         icon: 'token:rfox',
         disabled: true,
       }],

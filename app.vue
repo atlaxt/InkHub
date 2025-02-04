@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'Fox Os',
+  title: 'Foxian',
 })
 </script>
 
