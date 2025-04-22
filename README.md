@@ -1,14 +1,25 @@
-# Border White
+# 🧿 imoji
 
-Border White is a **border generator** tool developed with **Next.js**, **TypeScript**, and **Tailwind CSS**. Users can enter specific parameters to create custom borders and instantly copy the **Tailwind CSS class**.
+**imoji** is a modern and minimal emoji explorer built with Vue and Tailwind CSS.
+You can search, filter by skin tone or category, and copy emojis with a single click.
 
-## 🚀 Project Status
-- **Completed:** Border Generator
-- **Planned:** Shadow Generator
+## ✨ Features
 
-## 📦 Installation
+- 🔍 Fast real-time emoji search
+- 🎨 Skin tone filter support
+- 📚 Category-based navigation
+- 📋 One-click to copy emojis
+- 🧠 Smart "Recently Used" list (stored locally)
+- ⚡ Blazing fast performance
+
+## 🚀 Tech Stack
+
+- [Nuxt 3](https://nuxt.com)
+- [Pinia](https://pinia.vuejs.org)
+- [Tailwind CSS](https://tailwindcss.com)
+
+## 📦 Setup
+
 ```bash
-git clone https://github.com/atlasyigitaydin/border-white.git
-cd border-white
-npm install
-npm run dev
+pnpm install
+pnpm dev

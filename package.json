@@ -1,30 +1,34 @@
 {
-  "name": "border-white",
-  "version": "0.1.0",
+  "name": "nuxt-app",
+  "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
-    "@heroui/react": "^2.7.2",
-    "framer-motion": "^12.4.7",
-    "next": "15.1.7",
-    "react": "^19.0.0",
-    "react-color-palette": "^7.3.0",
-    "react-dom": "^19.0.0"
+    "@nuxt/fonts": "0.11.1",
+    "@nuxt/icon": "1.12.0",
+    "@nuxt/image": "^1.10.0",
+    "@nuxt/ui": "^3.0.2",
+    "@pinia/nuxt": "^0.11.0",
+    "@tailwindcss/vite": "^4.1.4",
+    "@vueuse/core": "^13.1.0",
+    "nuxt": "^3.16.2",
+    "nuxt-gtag": "^3.0.2",
+    "pinia": "^3.0.2",
+    "tailwindcss": "^4.1.4",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.7",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "@antfu/eslint-config": "^4.12.0",
+    "@iconify-json/mdi": "^1.2.3",
+    "eslint": "^9.24.0"
   }
 }
