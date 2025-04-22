@@ -127,10 +127,10 @@ function exportDrawingAsDataURL() {
   <div class="flex flex-col gap-4 w-full h-full">
     <div class="flex flex-row gap-4 w-full justify-between rounded-lg p-3 border dark:border-zinc-700 border-zinc-300 shadow dark:bg-zinc-900 bg-zinc-100">
       <div class="flex flex-col justify-between gap-4 w-full">
-        <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-4">
           <UButtonGroup class="w-full">
-            <UButton color="neutral" class="w-full" label="Pencil" :variant="tool === 'pen' ? 'solid' : 'outline'" icon="lucide:brush" @click="tool = 'pen'" />
-            <UButton color="neutral" class="w-full" label="Eraser" :variant="tool === 'eraser' ? 'solid' : 'outline'" icon="lucide:eraser" @click="tool = 'eraser'" />
+            <UButton block color="neutral" class="w-full" label="Pencil" :variant="tool === 'pen' ? 'solid' : 'outline'" icon="lucide:brush" @click="tool = 'pen'" />
+            <UButton block color="neutral" class="w-full" label="Eraser" :variant="tool === 'eraser' ? 'solid' : 'outline'" icon="lucide:eraser" @click="tool = 'eraser'" />
           </UButtonGroup>
 
           <USeparator />

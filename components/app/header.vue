@@ -25,6 +25,13 @@ const items = computed<NavigationMenuItem[][]>(() => {
           to: { name: 'home' },
           class: '',
         },
+        {
+          label: 'Draw',
+          icon: 'lucide:brush',
+          active: route.name === 'draw',
+          to: { name: 'draw' },
+          class: '',
+        },
         // {
         //   label: 'Best Draws',
         //   icon: 'lucide:star',
