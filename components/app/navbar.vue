@@ -9,13 +9,6 @@ onMounted(() => {
 
 const { $auth, $signInWithPopup, $provider } = useNuxtApp()
 const auth = useAuthStore()
-const user = ref()
-
-onMounted(() => {
-  $auth.onAuthStateChanged((u) => {
-    user.value = u
-  })
-})
 
 function loginWithGitHub() {
   $signInWithPopup($auth, $provider)
@@ -44,6 +37,7 @@ const items = computed<NavigationMenuItem[][]>(() => {
           class: '',
         },
         {
+          disabled: !auth.isAuth,
           label: 'Draw',
           icon: 'lucide:brush',
           active: route.name === 'draw',
@@ -63,13 +57,41 @@ const items = computed<NavigationMenuItem[][]>(() => {
     <UNavigationMenu variant="link" :items="items" class="w-full">
       <template #auth>
         <UButton v-if="!auth.isAuth" color="neutral" variant="solid" icon="mdi:github" label="Sign in GitHub" @click="loginWithGitHub" />
-        <div class="flex flex-row items-center gap-6">
-          <div v-if="user" class="flex flex-row gap-2 items-center">
-            <UAvatar :src="user.photoURL" size="sm" class="cursor-pointer" @click="$auth.signOut()" />
-            <label> {{ user.displayName }} </label>
-          </div>
-          <UButton v-if="auth.isAuth" color="neutral" variant="link" icon="mdi:logout" @click="$auth.signOut()" />
-        </div>
+        <UDropdownMenu
+          v-else
+          :items="[
+            [
+              {
+                label: auth.user.displayName,
+                avatar: {
+                  src: auth.user.photoURL,
+                },
+                type: 'label',
+              },
+            ],
+            [
+              {
+                label: 'Logout',
+                icon: 'i-lucide-log-out',
+                onSelect: () => {
+                  $auth.signOut()
+                  navigateTo({ name: 'home' })
+                },
+              },
+            ],
+          ]"
+          :ui="{
+            content: 'w-48',
+          }"
+        >
+          <UAvatar
+            v-if="auth.user.photoURL"
+            :src="auth.user.photoURL"
+            :alt="auth.user.displayName"
+            size="sm"
+            class="cursor-pointer"
+          />
+        </UDropdownMenu>
       </template>
     </UNavigationMenu>
   </header>

@@ -6,9 +6,7 @@ definePageMeta({
 </script>
 
 <template>
-  <NuxtLayout>
-    <div class="justify-center flex items-center flex-col gap-4">
-      home
-    </div>
-  </NuxtLayout>
+  <div class="justify-center flex items-center flex-col gap-4">
+    home
+  </div>
 </template>
