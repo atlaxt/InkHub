@@ -94,7 +94,6 @@ onMounted(() => {
 
   fillBackground()
 
-  // 🎯 İlk boş canvas durumu yığına eklensin
   pushToUndoStack()
 
   canvasRef.value.addEventListener('mousedown', startDrawing)
@@ -114,12 +113,36 @@ defineShortcuts({
   },
 })
 
-const savedImage = ref<string>('')
+function mergeCanvases(): HTMLCanvasElement | null {
+  if (!canvasRef.value || !bgCanvasRef.value)
+    return null
 
-function exportDrawingAsDataURL() {
-  if (!canvasRef.value)
+  const merged = document.createElement('canvas')
+  merged.width = canvasRef.value.width
+  merged.height = canvasRef.value.height
+
+  const ctx = merged.getContext('2d')
+  if (!ctx)
+    return null
+
+  ctx.drawImage(bgCanvasRef.value as HTMLCanvasElement, 0, 0)
+
+  ctx.drawImage(canvasRef.value as HTMLCanvasElement, 0, 0)
+
+  return merged
+}
+
+const drawingStore = useDrawingsStore()
+const auth = useAuthStore()
+async function exportDrawingAsDataURL() {
+  const mergedCanvas = mergeCanvases()
+  if (!mergedCanvas || !auth.user)
     return
-  savedImage.value = canvasRef.value.toDataURL('image/png')
+
+  await drawingStore.createDrawing(auth.user.uid, mergedCanvas.toDataURL('image/png'), {
+    displayName: auth.user.displayName,
+    photoURL: auth.user.photoURL,
+  })
 }
 </script>
 

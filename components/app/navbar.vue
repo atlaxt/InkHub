@@ -7,16 +7,16 @@ onMounted(() => {
   mounted.value = true
 })
 
-const { $auth, $signInWithPopup, $provider } = useNuxtApp()
+const { $auth, $signInWithPopup, $provider, $signOut } = useNuxtApp()
 const auth = useAuthStore()
 
-function loginWithGitHub() {
-  $signInWithPopup($auth, $provider)
+async function loginWithGitHub() {
+  await $signInWithPopup($auth, $provider)
 }
 
-// function logout() {
-//   $signOut($auth)
-// }
+async function logout() {
+  await $signOut($auth)
+}
 
 const items = computed<NavigationMenuItem[][]>(() => {
   if (!mounted.value) {
@@ -31,7 +31,7 @@ const items = computed<NavigationMenuItem[][]>(() => {
         },
         {
           label: 'Draws',
-          icon: 'lucide:book-image',
+          icon: 'lucide:images',
           active: route.name === 'home',
           to: { name: 'home' },
           class: '',
@@ -71,10 +71,16 @@ const items = computed<NavigationMenuItem[][]>(() => {
             ],
             [
               {
+                label: 'My Draws',
+                icon: 'lucide:book-image',
+              },
+            ],
+            [
+              {
                 label: 'Logout',
                 icon: 'i-lucide-log-out',
-                onSelect: () => {
-                  $auth.signOut()
+                onSelect: async () => {
+                  await logout()
                   navigateTo({ name: 'home' })
                 },
               },
@@ -82,6 +88,10 @@ const items = computed<NavigationMenuItem[][]>(() => {
           ]"
           :ui="{
             content: 'w-48',
+          }"
+          :content="{
+            align: 'end',
+            side: 'bottom',
           }"
         >
           <UAvatar
