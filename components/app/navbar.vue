@@ -38,6 +38,7 @@ const items = computed<NavigationMenuItem[][]>(() => {
         },
         {
           label: 'Best Draws',
+          disabled: true,
           icon: 'lucide:star',
           class: '',
         },
@@ -78,6 +79,7 @@ const items = computed<NavigationMenuItem[][]>(() => {
               ],
               [
                 {
+                  disabled: true,
                   label: 'My Draws',
                   icon: 'lucide:book-image',
                 },
