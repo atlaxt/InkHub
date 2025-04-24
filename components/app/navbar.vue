@@ -52,8 +52,6 @@ const items = computed<NavigationMenuItem[][]>(() => {
 
 <template>
   <header class="w-full flex justify-center items-center min-h-16 max-h-16">
-    <img v-if="isDark" src="../../assets/img/logo_white.png" class="h-full mr-2">
-    <img v-else src="../../assets/img/logo_black.png" class="h-full mr-2">
     <UNavigationMenu variant="link" :items="items" class="w-full">
       <template #auth>
         <div class="flex flex-row items-center gap-4">
