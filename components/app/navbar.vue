@@ -56,6 +56,7 @@ const items = computed<NavigationMenuItem[][]>(() => {
         <div class="flex flex-row items-center gap-4">
           <UButton v-if="!auth.isAuth" color="neutral" variant="solid" icon="mdi:github" label="Sign in GitHub" @click="loginWithGitHub" />
           <UButton
+            v-if="auth.isAuth"
             color="success"
             variant="subtle"
             :disabled="!auth.isAuth || route.name === 'draw'"

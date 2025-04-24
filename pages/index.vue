@@ -27,6 +27,5 @@ onMounted(async () => {
         :drawing="drawing"
       />
     </div>
-    <UButton color="neutral" label="Daha fazla yükle" :disabled="drawingsStore.loading" @click="loadMore" />
   </div>
 </template>
