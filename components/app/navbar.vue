@@ -37,11 +37,8 @@ const items = computed<NavigationMenuItem[][]>(() => {
           class: '',
         },
         {
-          disabled: !auth.isAuth,
-          label: 'Draw',
-          icon: 'lucide:brush',
-          active: route.name === 'draw',
-          to: { name: 'draw' },
+          label: 'Best Draws',
+          icon: 'lucide:star',
           class: '',
         },
 
@@ -56,52 +53,62 @@ const items = computed<NavigationMenuItem[][]>(() => {
   <header class="w-full flex justify-center items-center min-h-16">
     <UNavigationMenu variant="link" :items="items" class="w-full">
       <template #auth>
-        <UButton v-if="!auth.isAuth" color="neutral" variant="solid" icon="mdi:github" label="Sign in GitHub" @click="loginWithGitHub" />
-        <UDropdownMenu
-          v-else
-          :items="[
-            [
-              {
-                label: auth.user.displayName,
-                avatar: {
-                  src: auth.user.photoURL,
-                },
-                type: 'label',
-              },
-            ],
-            [
-              {
-                label: 'My Draws',
-                icon: 'lucide:book-image',
-              },
-            ],
-            [
-              {
-                label: 'Logout',
-                icon: 'i-lucide-log-out',
-                onSelect: async () => {
-                  await logout()
-                  navigateTo({ name: 'home' })
-                },
-              },
-            ],
-          ]"
-          :ui="{
-            content: 'w-48',
-          }"
-          :content="{
-            align: 'end',
-            side: 'bottom',
-          }"
-        >
-          <UAvatar
-            v-if="auth.user.photoURL"
-            :src="auth.user.photoURL"
-            :alt="auth.user.displayName"
-            size="sm"
-            class="cursor-pointer"
+        <div class="flex flex-row items-center gap-4">
+          <UButton v-if="!auth.isAuth" color="neutral" variant="solid" icon="mdi:github" label="Sign in GitHub" @click="loginWithGitHub" />
+          <UButton
+            color="success"
+            variant="subtle"
+            :disabled="!auth.isAuth || route.name === 'draw'"
+            label="Draw"
+            icon="lucide:brush"
+            :to="{ name: 'draw' }"
           />
-        </UDropdownMenu>
+          <UDropdownMenu
+            v-if="auth.isAuth"
+            :items="[
+              [
+                {
+                  label: auth.user.displayName,
+                  avatar: {
+                    src: auth.user.photoURL,
+                  },
+                  type: 'label',
+                },
+              ],
+              [
+                {
+                  label: 'My Draws',
+                  icon: 'lucide:book-image',
+                },
+              ],
+              [
+                {
+                  label: 'Logout',
+                  icon: 'i-lucide-log-out',
+                  onSelect: async () => {
+                    await logout()
+                    navigateTo({ name: 'home' })
+                  },
+                },
+              ],
+            ]"
+            :ui="{
+              content: 'w-48',
+            }"
+            :content="{
+              align: 'end',
+              side: 'bottom',
+            }"
+          >
+            <UAvatar
+              v-if="auth.user.photoURL"
+              :src="auth.user.photoURL"
+              :alt="auth.user.displayName"
+              size="sm"
+              class="cursor-pointer"
+            />
+          </UDropdownMenu>
+        </div>
       </template>
     </UNavigationMenu>
   </header>

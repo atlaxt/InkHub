@@ -19,11 +19,11 @@ onMounted(async () => {
 
 <template>
   <div class="justify-center h-full flex items-center flex-col gap-4">
-    <div class="grid grid-cols-2 w-full h-full overflow-auto">
+    <div class="grid lg:grid-cols-2 grid-cols-1 w-full h-full gap-4 overflow-auto">
       <DrawingCard
         v-for="drawing in drawingsStore.drawings"
         :key="drawing.id"
-        class="max-h-[360px] min-h-[360px]"
+        class="max-h-[360px] min-h-[360px] flex-1"
         :drawing="drawing"
       />
     </div>
