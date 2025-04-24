@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     ],
   },
   gtag: {
-    id: 'G-***',
+    id: 'G-HD02T1F4E3',
   },
 
   runtimeConfig: {
