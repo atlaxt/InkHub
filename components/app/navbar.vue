@@ -81,6 +81,7 @@ const items = computed<NavigationMenuItem[][]>(() => {
                 {
                   disabled: true,
                   label: 'My Draws',
+                  to: { name: 'myDraws' },
                   icon: 'lucide:book-image',
                 },
               ],

@@ -3,8 +3,10 @@ definePageMeta({
   name: 'home',
   path: '/',
 })
-
+const sentinel = ref<HTMLElement | null>(null)
 const drawingsStore = useDrawingsStore()
+
+let observer: IntersectionObserver
 
 async function loadMore() {
   await drawingsStore.fetchDrawings()
@@ -13,7 +15,20 @@ async function loadMore() {
 onMounted(async () => {
   drawingsStore.resetDrawings()
   await drawingsStore.fetchDrawings()
-  loadMore()
+
+  observer = new IntersectionObserver(async ([entry]) => {
+    if (entry.isIntersecting) {
+      await loadMore()
+    }
+  })
+
+  if (sentinel.value instanceof HTMLElement) {
+    observer.observe(sentinel.value)
+  }
+})
+
+onBeforeUnmount(() => {
+  observer.disconnect()
 })
 </script>
 
@@ -25,5 +40,6 @@ onMounted(async () => {
       class="lg:flex-1"
       :drawing="drawing"
     />
+    <div ref="sentinel" class="w-full h-10" />
   </div>
 </template>

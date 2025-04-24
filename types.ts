@@ -1,12 +1,16 @@
+import type { Timestamp } from 'firebase/firestore'
+
 export interface DrawingMeta {
-  id?: string
+  id: string
   uid: string
   imagePath: string
+  imageUrl?: string
+  displayName?: string
+  photoURL?: string
+  createdAt: Timestamp
   likes: number
   dislikes: number
-  displayName?: string | null
-  photoURL?: string | null
-  createdAt: any
+  replyTo: string | null
 }
 
 export interface DrawingUser {
