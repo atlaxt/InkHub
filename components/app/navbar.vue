@@ -25,10 +25,10 @@ const items = computed<NavigationMenuItem[][]>(() => {
   else {
     return [
       [
-        {
-          icon: isDark.value ? 'i-lucide-sun' : 'i-lucide-moon',
-          onSelect: toggleDark,
-        },
+        // {
+        //   icon: isDark.value ? 'i-lucide-sun' : 'i-lucide-moon',
+        //   onSelect: toggleDark,
+        // },
         {
           label: 'Draws',
           icon: 'lucide:images',
@@ -51,7 +51,9 @@ const items = computed<NavigationMenuItem[][]>(() => {
 </script>
 
 <template>
-  <header class="w-full flex justify-center items-center min-h-16">
+  <header class="w-full flex justify-center items-center min-h-16 max-h-16">
+    <img v-if="isDark" src="../../assets/img/logo_white.png" class="h-full mr-2">
+    <img v-else src="../../assets/img/logo_black.png" class="h-full mr-2">
     <UNavigationMenu variant="link" :items="items" class="w-full">
       <template #auth>
         <div class="flex flex-row items-center gap-4">
@@ -111,6 +113,7 @@ const items = computed<NavigationMenuItem[][]>(() => {
               class="cursor-pointer"
             />
           </UDropdownMenu>
+          <UButton color="neutral" variant="link" size="xl" :icon="isDark ? 'lucide:moon' : 'lucide:sun'" @click="toggleDark" />
         </div>
       </template>
     </UNavigationMenu>
