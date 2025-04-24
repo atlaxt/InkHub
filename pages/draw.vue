@@ -6,7 +6,7 @@ definePageMeta({
 </script>
 
 <template>
-  <section class="h-full flex flex-col">
+  <section class="h-full flex flex-col overflow-auto">
     <h1 class="text-2xl w-full text-left font-bold mb-4">
       Draw Side
     </h1>

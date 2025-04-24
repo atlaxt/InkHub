@@ -23,6 +23,7 @@ onMounted(async () => {
       <DrawingCard
         v-for="drawing in drawingsStore.drawings"
         :key="drawing.id"
+        class="max-h-[360px] min-h-[360px]"
         :drawing="drawing"
       />
     </div>
