@@ -132,6 +132,7 @@ function mergeCanvases(): HTMLCanvasElement | null {
   return merged
 }
 
+const approveModalIsOpen = ref(false)
 const drawingStore = useDrawingsStore()
 const auth = useAuthStore()
 async function exportDrawingAsDataURL() {
@@ -142,13 +143,18 @@ async function exportDrawingAsDataURL() {
   await drawingStore.createDrawing(auth.user.uid, mergedCanvas.toDataURL('image/png'), {
     displayName: auth.user.displayName,
     photoURL: auth.user.photoURL,
+  }).then(() => {
+    navigateTo({ name: 'home' })
+    clearCanvas()
+  }).catch((err) => {
+    console.error(err)
   })
 }
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 w-full h-full">
-    <div class="flex flex-row gap-4 w-full justify-between rounded-lg p-3 border dark:border-zinc-700 border-zinc-300 shadow dark:bg-zinc-900 bg-zinc-100">
+  <div class="flex flex-col gap-4 w-full h-full overflow-auto ">
+    <div class="flex lg:flex-row flex-col gap-4 w-full justify-between rounded-lg p-3 border dark:border-zinc-700 border-zinc-300 shadow dark:bg-zinc-900 bg-zinc-100">
       <div class="flex flex-col justify-between gap-4 w-full">
         <div class="flex flex-col gap-4">
           <UButtonGroup class="w-full">
@@ -238,7 +244,18 @@ async function exportDrawingAsDataURL() {
       </div>
     </div>
     <div class="w-full flex justify-end">
-      <UButton label="Send" variant="solid" icon="lucide:check" color="success" @click="exportDrawingAsDataURL" />
+      <UModal v-model:open="approveModalIsOpen" title="Modal with footer" description="This is useful when you want a form in a Modal." :ui="{ footer: 'justify-end' }">
+        <UButton label="Send" variant="solid" icon="lucide:check" color="neutral" />
+
+        <template #body>
+          {{ canvasRef }}
+        </template>
+
+        <template #footer>
+          <UButton label="Cancel" color="neutral" variant="outline" @click="approveModalIsOpen = false" />
+          <UButton label="Submit" color="neutral" @click="exportDrawingAsDataURL" />
+        </template>
+      </UModal>
     </div>
   </div>
 </template>

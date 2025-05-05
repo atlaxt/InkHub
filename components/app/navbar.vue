@@ -36,14 +36,15 @@ const items = computed<NavigationMenuItem[][]>(() => {
           to: { name: 'home' },
           class: '',
         },
-        {
-          label: 'Best Draws',
-          disabled: true,
-          icon: 'lucide:star',
-          class: '',
-        },
+        // {
+        //   label: 'Best Draws',
+        //   disabled: true,
+        //   icon: 'lucide:star',
+        //   class: '',
+        // },
 
       ],
+      [{ slot: 'beta' }],
       [{ slot: 'auth' }],
     ]
   }
@@ -53,6 +54,11 @@ const items = computed<NavigationMenuItem[][]>(() => {
 <template>
   <header class="w-full flex justify-center items-center min-h-16 max-h-16">
     <UNavigationMenu variant="link" :items="items" class="w-full">
+      <template #beta>
+        <UBadge color="neutral" variant="subtle">
+          beta v.0.1
+        </UBadge>
+      </template>
       <template #auth>
         <div class="flex flex-row items-center gap-4">
           <UButton v-if="!auth.isAuth" color="neutral" variant="solid" icon="mdi:github" label="Sign in GitHub" @click="loginWithGitHub" />
