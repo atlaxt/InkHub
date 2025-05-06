@@ -4,6 +4,13 @@ useHead({
   htmlAttrs: {
     lang: 'en',
   },
+  link: [
+    {
+      rel: 'icon',
+      href: '/favicon_white.ico',
+      type: 'image/svg+xml',
+    },
+  ],
 })
 </script>
 

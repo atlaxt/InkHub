@@ -240,22 +240,47 @@ async function exportDrawingAsDataURL() {
         <canvas
           ref="canvasRef" width="512" height="512"
           class="absolute top-0 left-0 z-10"
+          :class="{
+            'tool-pen': tool === 'pen',
+            'tool-eraser': tool === 'eraser',
+          }"
         />
       </div>
     </div>
     <div class="w-full flex justify-end">
-      <UModal v-model:open="approveModalIsOpen" title="Modal with footer" description="This is useful when you want a form in a Modal." :ui="{ footer: 'justify-end' }">
-        <UButton label="Send" variant="solid" icon="lucide:check" color="neutral" />
+      <UModal
+        v-model:open="approveModalIsOpen"
+        title="Are you sure you want to submit your drawing?"
+        :ui="{ footer: 'justify-end' }"
+      >
+        <UButton color="neutral" label="Send" icon="lucide:check" @click="approveModalIsOpen = true" />
 
         <template #body>
-          {{ canvasRef }}
+          <div class="w-full h-auto">
+            <img
+              v-if="mergeCanvases()"
+              :src="mergeCanvases()?.toDataURL('image/png')"
+              alt="Drawing Preview"
+              class="w-full rounded border dark:border-zinc-700 border-zinc-300"
+            >
+          </div>
         </template>
 
         <template #footer>
-          <UButton label="Cancel" color="neutral" variant="outline" @click="approveModalIsOpen = false" />
-          <UButton label="Submit" color="neutral" @click="exportDrawingAsDataURL" />
+          <UButton label="Cancel" color="error" icon="lucide:x" variant="outline" @click="approveModalIsOpen = false" />
+          <UButton label="Submit" icon="lucide:check" color="success" @click="exportDrawingAsDataURL" />
         </template>
       </UModal>
     </div>
   </div>
 </template>
+
+<style scoped>
+.tool-pen {
+  cursor: url('/cursors/pen.svg');
+}
+
+.tool-eraser {
+  cursor: url('/cursors/eraser.svg');
+}
+</style>
