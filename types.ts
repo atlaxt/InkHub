@@ -5,15 +5,23 @@ export interface DrawingMeta {
   uid: string
   imagePath: string
   imageUrl?: string
-  displayName?: string
   photoURL?: string
   createdAt: Timestamp
   likes: number
   dislikes: number
   replyTo: string | null
+  commentCount: number
+  displayName?: string
 }
 
-export interface DrawingUser {
-  displayName?: string
-  photoURL?: string
+export interface DrawingCreateRequest {
+  draw: {
+    base64: string
+    replyTo: string | null
+  }
+  user: {
+    uid: string
+    displayName: string
+    photoURL: string
+  }
 }

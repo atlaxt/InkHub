@@ -17,7 +17,7 @@ onMounted(async () => {
     imageUrl.value = await getDownloadURL(imageRef)
   }
   catch (err) {
-    console.warn('Görsel yüklenemedi:', err)
+    console.warn('Error:', err)
   }
   finally {
     loadingImage.value = false

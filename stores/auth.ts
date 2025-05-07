@@ -1,7 +1,8 @@
+import type { User } from 'firebase/auth'
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<any>(null)
+  const user = ref<User | null>(null)
   const loading = ref<boolean>(true)
 
   const auth = useNuxtApp().$auth
@@ -10,12 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
   function init() {
     onAuthStateChanged(auth, (u) => {
       if (u) {
-        user.value = {
-          uid: u.uid,
-          displayName: u.displayName,
-          email: u.email,
-          photoURL: u.photoURL,
-        }
+        user.value = u
       }
       else {
         user.value = null

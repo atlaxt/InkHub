@@ -140,9 +140,16 @@ async function exportDrawingAsDataURL() {
   if (!mergedCanvas || !auth.user)
     return
 
-  await drawingStore.createDrawing(auth.user.uid, mergedCanvas.toDataURL('image/png'), {
-    displayName: auth.user.displayName,
-    photoURL: auth.user.photoURL,
+  await drawingStore.createDrawing({
+    user: {
+      displayName: auth.user.displayName ?? 'Anonymous',
+      photoURL: auth.user.photoURL!,
+      uid: auth.user.uid!,
+    },
+    draw: {
+      base64: mergedCanvas.toDataURL('image/png'),
+      replyTo: null,
+    },
   }).then(() => {
     navigateTo({ name: 'home' })
     clearCanvas()

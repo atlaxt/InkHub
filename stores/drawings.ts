@@ -1,5 +1,5 @@
 import type { QueryDocumentSnapshot } from 'firebase/firestore'
-import type { DrawingMeta, DrawingUser } from '~/types'
+import type { DrawingCreateRequest, DrawingMeta } from '~/types'
 import {
   addDoc,
   collection,
@@ -23,25 +23,25 @@ export const useDrawingsStore = defineStore('drawings', () => {
   const replyDrawings = ref<DrawingMeta[]>([])
   const lastVisible = ref<QueryDocumentSnapshot | null>(null)
   const loading = ref(false)
-  const limitPerPage = 12
+  const limitPerPage = 50
 
-  const createDrawing = async (uid: string, base64: string, user: DrawingUser, replyTo: string | null = null) => {
+  const createDrawing = async (drawingCreateRequest: DrawingCreateRequest) => {
     const uuid = crypto.randomUUID()
-    const path = `images/${uid}/${uuid}.png`
+    const path = `images/${drawingCreateRequest.user.uid}/${uuid}.png`
 
     const storage = getStorage()
     const imageRef = storageRef(storage, path)
-    await uploadString(imageRef, base64, 'data_url')
+    await uploadString(imageRef, drawingCreateRequest.draw.base64, 'data_url')
 
     const db = getFirestore()
     await addDoc(collection(db, 'drawings'), {
-      uid,
+      uid: drawingCreateRequest.user.uid,
       imagePath: path,
       likes: 0,
       dislikes: 0,
-      replyTo: replyTo ?? null,
-      displayName: user.displayName ?? null,
-      photoURL: user.photoURL ?? null,
+      replyTo: drawingCreateRequest.draw.replyTo,
+      displayName: drawingCreateRequest.user.displayName,
+      photoURL: drawingCreateRequest.user.photoURL,
       createdAt: serverTimestamp(),
     })
   }
