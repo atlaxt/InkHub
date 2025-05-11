@@ -10,12 +10,9 @@ export const useAuthStore = defineStore('auth', () => {
 
   function init() {
     onAuthStateChanged(auth, (u) => {
-      if (u) {
+      if (u)
         user.value = u
-      }
-      else {
-        user.value = null
-      }
+      else user.value = null
       loading.value = false
     })
   }

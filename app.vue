@@ -7,7 +7,7 @@ useHead({
   link: [
     {
       rel: 'icon',
-      href: '/favicon_white.ico',
+      href: '/favicon.ico',
       type: 'image/svg+xml',
     },
   ],

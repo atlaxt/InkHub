@@ -12,10 +12,14 @@ const auth = useAuthStore()
 
 async function loginWithGitHub() {
   await $signInWithPopup($auth, $provider)
+  await refreshNuxtData()
+  reloadNuxtApp()
 }
 
 async function logout() {
   await $signOut($auth)
+  await refreshNuxtData()
+  reloadNuxtApp()
 }
 
 const items = computed<NavigationMenuItem[][]>(() => {
@@ -61,7 +65,10 @@ const items = computed<NavigationMenuItem[][]>(() => {
       </template>
       <template #auth>
         <div class="flex flex-row items-center gap-4">
-          <UButton v-if="!auth.isAuth" color="neutral" variant="solid" icon="mdi:github" label="Sign in GitHub" @click="loginWithGitHub" />
+          <UButton
+            v-if="!auth.isAuth" color="neutral" variant="solid" icon="mdi:github" label="Sign in GitHub"
+            @click="loginWithGitHub"
+          />
           <UButton
             v-if="auth.isAuth"
             color="success"
@@ -76,9 +83,9 @@ const items = computed<NavigationMenuItem[][]>(() => {
             :items="[
               [
                 {
-                  label: auth.user.displayName,
+                  label: auth.user?.displayName,
                   avatar: {
-                    src: auth.user.photoURL,
+                    src: auth.user?.photoURL,
                   },
                   type: 'label',
                 },
@@ -111,9 +118,9 @@ const items = computed<NavigationMenuItem[][]>(() => {
             }"
           >
             <UAvatar
-              v-if="auth.user.photoURL"
-              :src="auth.user.photoURL"
-              :alt="auth.user.displayName"
+              v-if="auth.user?.photoURL"
+              :src="auth.user?.photoURL"
+              :alt="auth.user.displayName ?? 'User Avatar'"
               size="sm"
               class="cursor-pointer"
             />

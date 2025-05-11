@@ -1,25 +1,25 @@
+import type { User } from 'firebase/auth'
 import type { QueryDocumentSnapshot } from 'firebase/firestore'
 import type { DrawingCreateRequest, DrawingMeta } from '~/types'
 import {
   addDoc,
   collection,
-  doc,
+  // doc,
   getDocs,
   getFirestore,
-  increment,
+  // increment,
   limit,
   orderBy,
   query,
   serverTimestamp,
   startAfter,
-  updateDoc,
+  // updateDoc,
   where,
 } from 'firebase/firestore'
 import { getDownloadURL, getStorage, ref as storageRef, uploadString } from 'firebase/storage'
 
 export const useDrawingsStore = defineStore('drawings', () => {
   const drawings = ref<DrawingMeta[]>([])
-  const myDrawings = ref<DrawingMeta[]>([])
   const replyDrawings = ref<DrawingMeta[]>([])
   const lastVisible = ref<QueryDocumentSnapshot | null>(null)
   const loading = ref(false)
@@ -47,9 +47,8 @@ export const useDrawingsStore = defineStore('drawings', () => {
   }
 
   const resetDrawings = () => {
-    drawings.value = []
     lastVisible.value = null
-    myDrawings.value = []
+    drawings.value = []
   }
 
   const fetchDrawings = async () => {
@@ -80,27 +79,39 @@ export const useDrawingsStore = defineStore('drawings', () => {
     loading.value = false
   }
 
-  const fetchMyDrawings = async (uid: string | null | undefined) => {
-    if (!uid)
+  const fetchDrawingsByUid = async (uid: User['uid']) => {
+    if (!uid) {
+      console.warn('UID geçersiz')
       return
+    }
 
     const db = getFirestore()
-    const q = query(collection(db, 'drawings'), where('uid', '==', uid), orderBy('createdAt', 'desc'))
+    const q = query(
+      collection(db, 'drawings'),
+      where('uid', '==', uid),
+      orderBy('createdAt', 'desc'),
+    )
+
     const snapshot = await getDocs(q)
+    if (snapshot.empty) {
+      console.warn('Kullanıcıya ait hiç çizim bulunamadı.')
+      drawings.value = []
+      return
+    }
 
     const storage = getStorage()
     const drawingsWithUrls = await Promise.all(snapshot.docs.map(async (doc) => {
       const data = doc.data()
 
       let imageUrl = ''
-      try {
-        if (data.imagePath) {
+      if (data.imagePath) {
+        try {
           const imageRef = storageRef(storage, data.imagePath)
           imageUrl = await getDownloadURL(imageRef)
         }
-      }
-      catch (error) {
-        console.warn(`Resim yüklenemedi: ${data.imagePath}`, error)
+        catch (error) {
+          console.warn(`Resim yüklenemedi: ${data.imagePath}`, error)
+        }
       }
 
       return {
@@ -110,53 +121,52 @@ export const useDrawingsStore = defineStore('drawings', () => {
       } as DrawingMeta
     }))
 
-    myDrawings.value = drawingsWithUrls
+    drawings.value = drawingsWithUrls
   }
 
-  const fetchReplies = async (drawingId: string) => {
-    const db = getFirestore()
-    const q = query(collection(db, 'drawings'), where('replyTo', '==', drawingId), orderBy('createdAt', 'asc'))
-    const snapshot = await getDocs(q)
+  // const fetchReplies = async (drawingId: string) => {
+  //   const db = getFirestore()
+  //   const q = query(collection(db, 'drawings'), where('replyTo', '==', drawingId), orderBy('createdAt', 'asc'))
+  //   const snapshot = await getDocs(q)
 
-    const storage = getStorage()
-    replyDrawings.value = await Promise.all(snapshot.docs.map(async (doc) => {
-      const data = doc.data()
-      const imageUrl = await getDownloadURL(storageRef(storage, data.imagePath))
-      return { id: doc.id, ...data, imageUrl } as DrawingMeta
-    }))
-  }
+  //   const storage = getStorage()
+  //   replyDrawings.value = await Promise.all(snapshot.docs.map(async (doc) => {
+  //     const data = doc.data()
+  //     const imageUrl = await getDownloadURL(storageRef(storage, data.imagePath))
+  //     return { id: doc.id, ...data, imageUrl } as DrawingMeta
+  //   }))
+  // }
 
-  const likeDrawing = async (id: string) => {
-    const db = getFirestore()
-    const docRef = doc(db, 'drawings', id)
-    await updateDoc(docRef, { likes: increment(1) })
+  // const likeDrawing = async (id: string) => {
+  //   const db = getFirestore()
+  //   const docRef = doc(db, 'drawings', id)
+  //   await updateDoc(docRef, { likes: increment(1) })
 
-    const target = drawings.value.find(d => d.id === id)
-    if (target)
-      target.likes++
-  }
+  //   const target = drawings.value.find(d => d.id === id)
+  //   if (target)
+  //     target.likes++
+  // }
 
-  const dislikeDrawing = async (id: string) => {
-    const db = getFirestore()
-    const docRef = doc(db, 'drawings', id)
-    await updateDoc(docRef, { dislikes: increment(1) })
+  // const dislikeDrawing = async (id: string) => {
+  //   const db = getFirestore()
+  //   const docRef = doc(db, 'drawings', id)
+  //   await updateDoc(docRef, { dislikes: increment(1) })
 
-    const target = drawings.value.find(d => d.id === id)
-    if (target)
-      target.dislikes++
-  }
+  //   const target = drawings.value.find(d => d.id === id)
+  //   if (target)
+  //     target.dislikes++
+  // }
 
   return {
     drawings,
-    myDrawings,
     replyDrawings,
     loading,
     resetDrawings,
     createDrawing,
     fetchDrawings,
-    fetchMyDrawings,
-    fetchReplies,
-    likeDrawing,
-    dislikeDrawing,
+    fetchDrawingsByUid,
+    // fetchReplies,
+    // likeDrawing,
+    // dislikeDrawing,
   }
 })

@@ -248,8 +248,6 @@ async function exportDrawingAsDataURL() {
           ref="canvasRef" width="512" height="512"
           class="absolute top-0 left-0 z-10"
           :class="{
-            'tool-pen': tool === 'pen',
-            'tool-eraser': tool === 'eraser',
           }"
         />
       </div>
@@ -283,11 +281,5 @@ async function exportDrawingAsDataURL() {
 </template>
 
 <style scoped>
-.tool-pen {
-  cursor: url('/cursors/pen.svg');
-}
 
-.tool-eraser {
-  cursor: url('/cursors/eraser.svg');
-}
 </style>
