@@ -56,11 +56,11 @@ const items = computed<NavigationMenuItem[][]>(() => {
 </script>
 
 <template>
-  <header class="flex justify-center items-center min-h-16 max-h-16">
+  <header class="w-full flex justify-center items-center min-h-16 max-h-16">
     <UNavigationMenu variant="link" :items="items" class="w-full">
       <template #beta>
         <UBadge color="neutral" variant="subtle">
-          beta v.0.1
+          beta v.1.0.0
         </UBadge>
       </template>
       <template #auth>
@@ -92,7 +92,6 @@ const items = computed<NavigationMenuItem[][]>(() => {
               ],
               [
                 {
-                  disabled: true,
                   label: 'My Draws',
                   to: { name: 'myDraws' },
                   icon: 'lucide:book-image',

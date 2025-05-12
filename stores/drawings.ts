@@ -4,6 +4,8 @@ import type { DrawingCreateRequest, DrawingMeta } from '~/types'
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   // doc,
   getDocs,
   getFirestore,
@@ -16,11 +18,10 @@ import {
   // updateDoc,
   where,
 } from 'firebase/firestore'
-import { getDownloadURL, getStorage, ref as storageRef, uploadString } from 'firebase/storage'
+import { deleteObject, getDownloadURL, getStorage, ref as storageRef, uploadString } from 'firebase/storage'
 
 export const useDrawingsStore = defineStore('drawings', () => {
   const drawings = ref<DrawingMeta[]>([])
-  const replyDrawings = ref<DrawingMeta[]>([])
   const lastVisible = ref<QueryDocumentSnapshot | null>(null)
   const loading = ref(false)
   const limitPerPage = 50
@@ -124,49 +125,23 @@ export const useDrawingsStore = defineStore('drawings', () => {
     drawings.value = drawingsWithUrls
   }
 
-  // const fetchReplies = async (drawingId: string) => {
-  //   const db = getFirestore()
-  //   const q = query(collection(db, 'drawings'), where('replyTo', '==', drawingId), orderBy('createdAt', 'asc'))
-  //   const snapshot = await getDocs(q)
+  const deleteDrawing = async (drawingId: string, imagePath: string) => {
+    const db = getFirestore()
+    const storage = getStorage()
 
-  //   const storage = getStorage()
-  //   replyDrawings.value = await Promise.all(snapshot.docs.map(async (doc) => {
-  //     const data = doc.data()
-  //     const imageUrl = await getDownloadURL(storageRef(storage, data.imagePath))
-  //     return { id: doc.id, ...data, imageUrl } as DrawingMeta
-  //   }))
-  // }
+    await deleteDoc(doc(db, 'drawings', drawingId))
 
-  // const likeDrawing = async (id: string) => {
-  //   const db = getFirestore()
-  //   const docRef = doc(db, 'drawings', id)
-  //   await updateDoc(docRef, { likes: increment(1) })
-
-  //   const target = drawings.value.find(d => d.id === id)
-  //   if (target)
-  //     target.likes++
-  // }
-
-  // const dislikeDrawing = async (id: string) => {
-  //   const db = getFirestore()
-  //   const docRef = doc(db, 'drawings', id)
-  //   await updateDoc(docRef, { dislikes: increment(1) })
-
-  //   const target = drawings.value.find(d => d.id === id)
-  //   if (target)
-  //     target.dislikes++
-  // }
+    const imageRef = storageRef(storage, imagePath)
+    await deleteObject(imageRef)
+  }
 
   return {
-    drawings,
-    replyDrawings,
     loading,
+    drawings,
     resetDrawings,
     createDrawing,
     fetchDrawings,
     fetchDrawingsByUid,
-    // fetchReplies,
-    // likeDrawing,
-    // dislikeDrawing,
+    deleteDrawing,
   }
 })

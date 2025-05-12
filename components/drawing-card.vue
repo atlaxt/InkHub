@@ -3,8 +3,8 @@ import type { DrawingMeta } from '~/types'
 import { USkeleton } from '#components'
 import { getDownloadURL, getStorage, ref as storageRef } from 'firebase/storage'
 
-const props = defineProps<{ drawing: DrawingMeta }>()
-
+const props = defineProps<{ drawing: DrawingMeta, deleteButton?: boolean }>()
+const drawingStore = useDrawingsStore()
 const imageUrl = ref<string>('')
 const loadingImage = ref(true)
 
@@ -28,7 +28,7 @@ onMounted(async () => {
 <template>
   <div
     v-if="!loadingImage && imageUrl"
-    class="min-w-64 md:max-w-78 p-2 gap-2 flex flex-col rounded-lg overflow-hidden shadow-md border dark:border-zinc-700 border-zinc-200 bg-white dark:bg-zinc-900"
+    class="md:min-w-64 md:max-w-64 max-h-74 p-2 gap-2 flex flex-col rounded-lg overflow-hidden shadow-md border dark:border-zinc-700 border-zinc-200 bg-white dark:bg-zinc-900"
   >
     <img
       :src="imageUrl"
@@ -36,16 +36,27 @@ onMounted(async () => {
       alt="drawing"
     >
 
-    <div class="flex items-center justify-end gap-2">
-      <p class="text-sm font-medium">
-        {{ drawing.displayName ?? 'Anonymous' }}
-      </p>
-      <img
-        v-if="drawing.photoURL"
-        :src="drawing.photoURL"
-        class="w-6 h-6 rounded-full"
-        alt="user"
-      >
+    <div class="flex items-center justify-between gap-2">
+      <UButton
+        v-if="props.deleteButton"
+        icon="lucide:trash" color="error" variant="link" @click="async () => {
+          await drawingStore.deleteDrawing(props.drawing.id, props.drawing.imagePath)
+          drawingStore.resetDrawings()
+          await drawingStore.fetchDrawingsByUid(useAuthStore().user?.uid as string)
+        }"
+      />
+      <div v-else />
+      <div class="flex items-center flex-row gap-2">
+        <p class="text-sm font-medium">
+          {{ drawing.displayName ?? 'Anonymous' }}
+        </p>
+        <img
+          v-if="drawing.photoURL"
+          :src="drawing.photoURL"
+          class="w-6 h-6 rounded-full"
+          alt="user"
+        >
+      </div>
     </div>
   </div>
 

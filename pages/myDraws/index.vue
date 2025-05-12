@@ -12,21 +12,18 @@ onMounted(async () => {
   const uid = authStore.user?.uid
   if (!uid)
     return
-
   await drawingsStore.fetchDrawingsByUid(uid)
 })
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-4 pb-2 overflow-y-auto">
+  <div class="flex flex-wrap gap-4 w-6xl mx-auto h-full">
     <DrawingCard
       v-for="drawing in drawingsStore.drawings"
       :key="drawing.id"
-      class="lg:flex-1"
+      class="flex-1"
       :drawing="drawing"
+      delete-button
     />
-    <p v-if="!drawingsStore.drawings.length" class="text-center w-full text-sm text-gray-400">
-      No Draw.
-    </p>
   </div>
 </template>
