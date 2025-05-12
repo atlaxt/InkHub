@@ -33,11 +33,11 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-4 pb-2 overflow-y-auto">
+  <div class="flex flex-wrap gap-4 w-6xl mx-auto">
     <DrawingCard
       v-for="drawing in drawingsStore.drawings"
       :key="drawing.id"
-      class="lg:flex-1"
+      class="flex-1"
       :drawing="drawing"
     />
     <div ref="sentinel" class="w-full h-10" />

@@ -56,7 +56,7 @@ const items = computed<NavigationMenuItem[][]>(() => {
 </script>
 
 <template>
-  <header class="w-full flex justify-center items-center min-h-16 max-h-16">
+  <header class="flex justify-center items-center min-h-16 max-h-16">
     <UNavigationMenu variant="link" :items="items" class="w-full">
       <template #beta>
         <UBadge color="neutral" variant="subtle">

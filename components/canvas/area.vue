@@ -153,8 +153,6 @@ async function exportDrawingAsDataURL() {
   }).then(() => {
     navigateTo({ name: 'home' })
     clearCanvas()
-  }).catch((err) => {
-    console.error(err)
   })
 }
 </script>
