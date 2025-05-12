@@ -135,7 +135,9 @@ function mergeCanvases(): HTMLCanvasElement | null {
 const approveModalIsOpen = ref(false)
 const drawingStore = useDrawingsStore()
 const auth = useAuthStore()
+const createLoading = ref<boolean>(false)
 async function exportDrawingAsDataURL() {
+  createLoading.value = true
   const mergedCanvas = mergeCanvases()
   if (!mergedCanvas || !auth.user)
     return
@@ -152,7 +154,10 @@ async function exportDrawingAsDataURL() {
     },
   }).then(() => {
     navigateTo({ name: 'home' })
+    createLoading.value = false
     clearCanvas()
+  }).catch(() => {
+    createLoading.value = true
   })
 }
 </script>
@@ -271,7 +276,7 @@ async function exportDrawingAsDataURL() {
 
         <template #footer>
           <UButton label="Cancel" color="error" icon="lucide:x" variant="outline" @click="approveModalIsOpen = false" />
-          <UButton label="Submit" icon="lucide:check" color="success" @click="exportDrawingAsDataURL" />
+          <UButton :disabled="createLoading" label="Submit" icon="lucide:check" color="success" @click="exportDrawingAsDataURL" />
         </template>
       </UModal>
     </div>
