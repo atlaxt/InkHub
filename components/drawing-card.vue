@@ -28,7 +28,7 @@ onMounted(async () => {
 <template>
   <div
     v-if="!loadingImage && imageUrl"
-    class="md:min-w-64 md:max-w-64 max-h-74 p-2 gap-2 flex flex-col rounded-lg overflow-hidden shadow-md border dark:border-zinc-700 border-zinc-200 bg-white dark:bg-zinc-900"
+    class="md:min-w-64 min-w-64 md:max-w-64 max-h-74 p-2 gap-2 flex flex-col rounded-lg overflow-hidden shadow-md border dark:border-zinc-700 border-zinc-200 bg-white dark:bg-zinc-900"
   >
     <img
       :src="imageUrl"
